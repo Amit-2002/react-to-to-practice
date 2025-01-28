@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { MdDelete } from "react-icons/md";
+import { MdCheckBox } from "react-icons/md";
 
 function App() {
 
@@ -41,7 +43,17 @@ function App() {
         <ul>
           {
             taskList.map((task,index) => {
-              return <li key={index}>{task}</li>
+              return(
+                <>
+                  <li key={index}>{task}</li>
+                  <button>
+                    <MdDelete />
+                  </button>
+                  <button>
+                    <MdCheckBox />
+                  </button>
+                </>
+              )
             })
           }
         </ul>
