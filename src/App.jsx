@@ -7,21 +7,42 @@ function App() {
   const [input, setInput] = useState('');
   const [taskList, setTask] = useState([]);
 
-  function handleInput(){
+  // handle input function
+  function handleInput(event){
     setInput(event.target.value);
   }
 
-  const handleFormSubmit = () => {
+  // handle form submit function
+  const handleFormSubmit = (event) => {
     event.preventDefault();
+    console.log("this is input",input);
+    console.log("this is task",taskList);
     
-    if(!input) return;
-    if (taskList.includes(input)){
-      setInput('');
-      return
-    }
-    setTask((prevTask) => [...prevTask, input]);
-    setInput('');
+    
+    setTask((prev)=>[...prev,input])
+    setInput("")
+    // if(!input) return;
+    // if (taskList.includes(input)){
+    //   setInput('');
+    //   return
+    // }
+    // setTask((prevTask) => [...prevTask, input]);
+    // setInput('');
   }
+
+
+  // handle Delete function
+  function handleDelete(task){
+    const updatedlist = taskList.filter((curTask) => curTask != task);
+    setTask(updatedlist);
+  }
+
+
+  // handle clear all function
+  function handleAllClear(){
+    setTask([])
+  }
+
 
   return (
     <>
@@ -46,18 +67,19 @@ function App() {
               return(
                 <>
                   <li key={index}>{task}</li>
-                  <button>
-                    <MdDelete />
-                  </button>
-                  <button>
+                  {/* <button>
                     <MdCheckBox />
                   </button>
+                  <button onClick={() => handleDelete(task)}>
+                    <MdDelete />
+                  </button> */}
                 </>
               )
             })
           }
         </ul>
       </section>
+      <button onClick={handleAllClear}>Clear All</button>
     </>
     
   )
