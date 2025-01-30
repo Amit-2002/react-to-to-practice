@@ -1,33 +1,21 @@
 import React, { useState } from 'react';
 import { MdDelete } from "react-icons/md";
 import { MdCheckBox } from "react-icons/md";
+import { Form } from './ToDo/Form';
+
 
 function App() {
-
-  const [input, setInput] = useState('');
   const [taskList, setTask] = useState([]);
 
-  // handle input function
-  function handleInput(event){
-    setInput(event.target.value);
-  }
+ 
 
   // handle form submit function
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    console.log("this is input",input);
-    console.log("this is task",taskList);
-    
-    
-    setTask((prev)=>[...prev,input])
-    setInput("")
-    // if(!input) return;
-    // if (taskList.includes(input)){
-    //   setInput('');
-    //   return
-    // }
-    // setTask((prevTask) => [...prevTask, input]);
-    // setInput('');
+  const handleFormSubmit = (input) => {
+    if(!input) return;
+    if (taskList.includes(input)){
+      return
+    }
+    setTask((prevTask) => [...prevTask, input]);
   }
 
 
@@ -47,19 +35,7 @@ function App() {
   return (
     <>
       <h1>ToDo App</h1>
-
-      <section>
-        <form onSubmit={handleFormSubmit}>
-          <input type="text"
-          placeholder='Add task'
-          value={input}
-          onChange={handleInput}
-          />
-
-          <button type='submit'>Add</button>
-        </form>
-      </section>
-
+      <Form addTask={handleFormSubmit} />
       <section>
         <ul>
           {
@@ -67,12 +43,12 @@ function App() {
               return(
                 <>
                   <li key={index}>{task}</li>
-                  {/* <button>
+                  <button>
                     <MdCheckBox />
                   </button>
                   <button onClick={() => handleDelete(task)}>
                     <MdDelete />
-                  </button> */}
+                  </button>
                 </>
               )
             })
