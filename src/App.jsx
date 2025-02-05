@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { MdDelete } from "react-icons/md";
-import { MdCheckBox } from "react-icons/md";
+import { MdDelete, MdCheckBox } from "react-icons/md";
 import { Form } from './ToDo/Form';
+import ToDoList from './ToDo/ToDoList';
+// import Date from './ToDo/Date';
 
 
 function App() {
@@ -35,21 +36,17 @@ function App() {
   return (
     <>
       <h1>ToDo App</h1>
+      {/* <Date /> */}
       <Form addTask={handleFormSubmit} />
       <section>
         <ul>
           {
             taskList.map((task,index) => {
               return(
-                <>
-                  <li key={index}>{task}</li>
-                  <button>
-                    <MdCheckBox />
-                  </button>
-                  <button onClick={() => handleDelete(task)}>
-                    <MdDelete />
-                  </button>
-                </>
+                <ToDoList 
+                key={index} data={task}
+                handleDelete={handleDelete}
+                />
               )
             })
           }
