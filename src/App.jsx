@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MdDelete, MdCheckBox } from "react-icons/md";
+// import { MdDelete, MdCheckBox } from "react-icons/md";
 import { Form } from './ToDo/Form';
 import ToDoList from './ToDo/ToDoList';
 // import Date from './ToDo/Date';
@@ -12,17 +12,20 @@ function App() {
 
   // handle form submit function
   const handleFormSubmit = (input) => {
-    if(!input) return;
-    if (taskList.includes(input)){
-      return
-    }
-    setTask((prevTask) => [...prevTask, input]);
+    const {id, content, checked} = input;
+
+    if(!content) return;
+
+    const toDoChecked = taskList.find((curTask) => curTask.content === content); 
+    if (toDoChecked) return;
+
+    setTask((prevTask) => [...prevTask, {id, content, checked}]);
   }
 
 
   // handle Delete function
   function handleDelete(task){
-    const updatedlist = taskList.filter((curTask) => curTask != task);
+    const updatedlist = taskList.filter((curTask) => curTask.content != task);
     setTask(updatedlist);
   }
 
@@ -41,10 +44,11 @@ function App() {
       <section>
         <ul>
           {
-            taskList.map((task,index) => {
+            taskList.map((curTask) => {
               return(
                 <ToDoList 
-                key={index} data={task}
+                key={curTask.id} 
+                data={curTask.content}
                 handleDelete={handleDelete}
                 />
               )

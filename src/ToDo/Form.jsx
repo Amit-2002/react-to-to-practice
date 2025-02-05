@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 
 export const Form = ({addTask}) => {
-    const [input, setInput] = useState('');
+    const [input, setInput] = useState({});
 
     // handle input function
-    function handleInput(event){
-        setInput(event.target.value);
+    function handleInput(value){
+        setInput({id: value, content: value, checked: false});
     }
 
         // handle form submit
     function handleFormSubmit(event){
         event.preventDefault();
         addTask(input);
-        setInput("");
+        setInput({id: "", content: "", checked: false});
     }
 
     return(
@@ -20,8 +20,8 @@ export const Form = ({addTask}) => {
             <form onSubmit={handleFormSubmit}>
                 <input type="text"
                 placeholder='Add task'
-                value={input}
-                onChange={handleInput}
+                value={input.content}
+                onChange={(e) => handleInput(e.target.value)}
                 />
 
                 <button type='submit'>Add</button>
